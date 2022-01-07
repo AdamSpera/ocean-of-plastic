@@ -1,0 +1,16 @@
+{
+  "name": "oceanofplastic",
+  "version": "1.0.0",
+  "description": "OceanOfPlastic Twitter Bot",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adam T Spera",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "node-static": "^0.7.11",
+    "twit": "^2.2.11"
+  }
+}
