@@ -1,6 +1,5 @@
-# Ocean Of Plastic
-Project repository for OceanOfPlastic twitter bot.
+# OceanOfPlastic Twitter Bot
 
-Powered by JavaScript and Oracle Cloud.
+Powered by JavaScript, Twitter-API, and Oracle Cloud.
 
-### Find me @OceanOfPlastic1 on Twitter!
+#### Find me @OceanOfPlastic1 on Twitter!
