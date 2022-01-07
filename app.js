@@ -20,6 +20,13 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
+var repeat = () => {
+
+  var dayInMilliseconds = 1000 * 60 * 60 * 24;
+  setInterval(function () { start(); }, dayInMilliseconds);
+
+}
+
 var start = () => { readFile() }
 
 var readFile = () => {
@@ -86,7 +93,7 @@ var getDate = (data) => {
     monthText = 'Month';
   }
 
-  if (dd[1] == 0 || dd[1] == 4 || dd[1] == 5 || dd[1] == 6 || dd[1] == 7 || dd[1] == 8 || dd[1] == 9) { 
+  if (dd[1] == 0 || dd[1] == 4 || dd[1] == 5 || dd[1] == 6 || dd[1] == 7 || dd[1] == 8 || dd[1] == 9) {
     dayText = +dd + "th"
   } else if (dd[1] == 1) {
     dayText = +dd + "st"
@@ -110,7 +117,8 @@ var postTwitter = (date, data) => {
     console.log(data)
   })
 
+  repeat;
+
 }
 
-
-start();
+repeat();
