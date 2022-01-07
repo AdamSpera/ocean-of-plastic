@@ -104,7 +104,7 @@ var getDate = (data) => {
 
 var postTwitter = (date, data) => {
 
-  let postContent = `${date}\n\nTotal amount of plastic in ocean today:\n\n${data}\n\n#SaveTheOcean #SaveOceans`;
+  let postContent = `${date}\n\nTotal amount of plastic in ocean today:\n\n${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}\n\n#SaveTheOcean #SaveOceans`;
 
   T.post('statuses/update', { status: postContent }, function (err, data, response) {
     console.log(data)
