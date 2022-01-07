@@ -22,12 +22,18 @@ function getRandomInt(max) {
 
 var repeat = () => {
 
+  console.log('Repeating...');
+
   var dayInMilliseconds = 1000 * 60 * 60 * 24;
   setInterval(function () { start(); }, dayInMilliseconds);
 
 }
 
-var start = () => { readFile() }
+var start = () => {
+
+  readFile();
+  console.log('Begin posting...');
+}
 
 var readFile = () => {
   fs.readFile('value.txt', 'utf8', (err, data) => {
@@ -41,8 +47,6 @@ var readFile = () => {
 
 var mathAddition = (data) => {
   data = data + 7000000 + getRandomInt(900000);
-  console.log(data);
-  console.log(typeof data);
 
   writeFile(data);
 
@@ -114,8 +118,10 @@ var postTwitter = (date, data) => {
   let postContent = `${date}\n\nTotal amount of plastic in ocean today:\n\n${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Pieces\n\n#SaveTheOcean #SaveOceans`;
 
   T.post('statuses/update', { status: postContent }, function (err, data, response) {
-    console.log(data)
+    console.log(`${date}: Post Created`);
   })
+
+  console.log('Finish posting...');
 
   repeat;
 
