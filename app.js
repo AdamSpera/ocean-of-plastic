@@ -30,7 +30,6 @@ var repeat = () => {
 }
 
 var start = () => {
-
   readFile();
   console.log('Begin posting...');
 }
@@ -127,4 +126,5 @@ var postTwitter = (date, data) => {
 
 }
 
-repeat();
+start(); // Posts when run
+// repeat(); // Runs after 24hrs
