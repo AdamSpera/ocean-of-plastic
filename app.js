@@ -20,18 +20,46 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
+var codeRun = () => {
+
+  let current = new Date();
+  let hh = current.getHours();
+  let mm = current.getMinutes();
+
+  let currentMS = ((hh * 60) + mm) * 60000;
+  let oneMS = 46800000;
+  let finalMilla;
+
+  if (currentMS < oneMS) {
+    finalMilla = oneMS - currentMS;
+  } else if (currentMS > oneMS) {
+    finalMilla = (86400000 - currentMS) + 46800000;
+  } else {
+    finalMilla = 0;
+  }
+
+  console.log(`codeRun(): Time till 13:00 is: ${finalMilla} Milliseconds`);
+
+  setTimeout(function () {
+    console.log(`codeRun(): It is 13:00! Running start() and repeat()`);
+    start();
+    repeat();
+  }, finalMilla);
+
+}
+
 var repeat = () => {
 
-  console.log('Repeating...');
-
-  var dayInMilliseconds = 1000 * 60 * 60 * 24;
-  setInterval(function () { start(); }, dayInMilliseconds);
+  setInterval(function () {
+    console.log('repeat(): It has been 24hrs! Firing start()');
+    start();
+  }, 86400000);
 
 }
 
 var start = () => {
   readFile();
-  console.log('Begin posting...');
+  console.log('start(): Firing readFile()');
 }
 
 var readFile = () => {
@@ -40,13 +68,16 @@ var readFile = () => {
       console.error(err)
       return
     }
+    console.log('readFile(): Firing mathAddition()');
     mathAddition(parseInt(data));
   })
 }
 
 var mathAddition = (data) => {
+
   data = data + 7000000 + getRandomInt(900000);
 
+  console.log('mathAddition(): Firing writeFile()');
   writeFile(data);
 
 }
@@ -55,6 +86,7 @@ var writeFile = (data) => {
 
   fs.writeFileSync('value.txt', data.toString());
 
+  console.log('writeFile(): Firing getDate()');
   getDate(data);
 
 }
@@ -106,8 +138,7 @@ var getDate = (data) => {
     dayText = +dd + "rd"
   }
 
-  let fullDate = `${monthText} ${dayText}, ${yyyy}`;
-
+  console.log('getDate(): Firing postTwitter()');
   postTwitter(`${monthText} ${dayText}, ${yyyy}`, data);
 
 }
@@ -117,14 +148,11 @@ var postTwitter = (date, data) => {
   let postContent = `${date}\n\nTotal amount of plastic in ocean today:\n\n${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Pieces\n\n#SaveTheOcean #SaveOceans`;
 
   T.post('statuses/update', { status: postContent }, function (err, data, response) {
-    console.log(`${date}: Post Created`);
+    console.log(`${date}: Tweet Confirmed`);
   })
 
-  console.log('Finish posting...');
-
-  repeat;
+  console.log('postTwitter(): Tweet Posted.');
 
 }
 
-start(); // Posts when run
-// repeat(); // Runs after 24hrs
+codeRun();
