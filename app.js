@@ -20,40 +20,28 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-var codeRun = () => {
-
-  let current = new Date();
-  let hh = current.getHours();
-  let mm = current.getMinutes();
-
-  let currentMS = ((hh * 60) + mm) * 60000;
-  let oneMS = 46800000;
-  let finalMilla;
-
-  if (currentMS < oneMS) {
-    finalMilla = oneMS - currentMS;
-  } else if (currentMS > oneMS) {
-    finalMilla = (86400000 - currentMS) + 46800000;
-  } else {
-    finalMilla = 0;
-  }
-
-  console.log(`codeRun(): Time till 13:00 is: ${finalMilla} Milliseconds`);
-
-  setTimeout(function () {
-    console.log(`codeRun(): It is 13:00! Running start() and repeat()`);
-    start();
-    repeat();
-  }, finalMilla);
-
-}
-
 var repeat = () => {
+  console.log('- REPEAT ACTIVE -');
 
   setInterval(function () {
-    console.log('repeat(): It has been 24hrs! Firing start()');
-    start();
-  }, 86400000);
+
+    let current = new Date();
+    let hh = current.getHours();
+    let mm = current.getMinutes();
+
+    if (hh == 12 && mm == 59) {
+      console.log('TIME CORRECT - WAITING 1 MIN');
+
+      setTimeout(function () { 
+        console.log('Running start()');
+        start();
+      }, 60000);
+
+    } else {
+      console.log('TI: '+hh + ':' + mm);
+    }
+
+  }, 60000);
 
 }
 
@@ -155,4 +143,4 @@ var postTwitter = (date, data) => {
 
 }
 
-codeRun();
+repeat();
