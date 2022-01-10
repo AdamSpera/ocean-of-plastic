@@ -12,7 +12,6 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "fs": "0.0.1-security",
-    "node-static": "^0.7.11",
     "twit": "^2.2.11"
   }
 }
