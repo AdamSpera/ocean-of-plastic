@@ -1,4 +1,4 @@
 node_modules/*
 .env*
 value.txt
-log.txt
+logbin.log

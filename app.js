@@ -1,4 +1,5 @@
 require('dotenv').config();
+var logwrite = require('logwrite');
 var Twit = require('twit');
 var express = require('express');
 var app = express();
@@ -13,7 +14,7 @@ var T = new Twit({
 
 app.use(express.static('public'));
 var server = app.listen(80, function () {
-  console.log('Server is listening on port 80');
+  logwrite.go('Server is listening on port 80');
 })
 
 function getRandomInt(max) {
@@ -21,7 +22,7 @@ function getRandomInt(max) {
 }
 
 var repeat = () => {
-  console.log('- REPEAT ACTIVE -');
+  logwrite.go('- REPEAT ACTIVE -');
 
   setInterval(function () {
 
@@ -30,15 +31,15 @@ var repeat = () => {
     let mm = current.getMinutes();
 
     if (hh == 12 && mm == 59) {
-      console.log('TIME CORRECT - WAITING 1 MIN');
+      logwrite.go('TIME CORRECT - WAITING 1 MIN');
 
       setTimeout(function () { 
-        console.log('Running start()');
+        logwrite.go('Running start()');
         start();
       }, 60000);
 
     } else {
-      console.log('TI: '+hh + ':' + mm);
+      logwrite.go('TI: '+hh + ':' + mm);
     }
 
   }, 60000);
@@ -47,7 +48,7 @@ var repeat = () => {
 
 var start = () => {
   readFile();
-  console.log('start(): Firing readFile()');
+  logwrite.go('start(): Firing readFile()');
 }
 
 var readFile = () => {
@@ -56,7 +57,7 @@ var readFile = () => {
       console.error(err)
       return
     }
-    console.log('readFile(): Firing mathAddition()');
+    logwrite.go('readFile(): Firing mathAddition()');
     mathAddition(parseInt(data));
   })
 }
@@ -65,7 +66,7 @@ var mathAddition = (data) => {
 
   data = data + 7000000 + getRandomInt(900000);
 
-  console.log('mathAddition(): Firing writeFile()');
+  logwrite.go('mathAddition(): Firing writeFile()');
   writeFile(data);
 
 }
@@ -74,7 +75,7 @@ var writeFile = (data) => {
 
   fs.writeFileSync('value.txt', data.toString());
 
-  console.log('writeFile(): Firing getDate()');
+  logwrite.go('writeFile(): Firing getDate()');
   getDate(data);
 
 }
@@ -126,7 +127,7 @@ var getDate = (data) => {
     dayText = +dd + "rd"
   }
 
-  console.log('getDate(): Firing postTwitter()');
+  logwrite.go('getDate(): Firing postTwitter()');
   postTwitter(`${monthText} ${dayText}, ${yyyy}`, data);
 
 }
@@ -136,10 +137,10 @@ var postTwitter = (date, data) => {
   let postContent = `${date}\n\nTotal amount of plastic in ocean today:\n\n${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Pieces\n\n#SaveTheOcean #SaveOceans`;
 
   T.post('statuses/update', { status: postContent }, function (err, data, response) {
-    console.log(`${date}: Tweet Confirmed`);
+    logwrite.go(`${date}: Tweet Confirmed`);
   })
 
-  console.log('postTwitter(): Tweet Posted.');
+  logwrite.go('postTwitter(): Tweet Posted.');
 
 }
 
